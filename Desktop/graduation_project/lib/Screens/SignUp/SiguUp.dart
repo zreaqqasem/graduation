@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:untitled/Screens/ForgetPassword/ForgetPassword.dart';
 import 'package:untitled/Screens/Login/Login.dart';
 
+import '../../Services/firebase_auth_service.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -33,6 +35,7 @@ class _SignUpState extends State<SignUp> {
     'Guest': false,
     'Company': false,
   };
+  HostFireBaseAuth firebase = HostFireBaseAuth();
   //bool guest = false;
   //bool company = false;
   @override
@@ -53,7 +56,7 @@ class _SignUpState extends State<SignUp> {
         ),
         backgroundColor: Color.fromRGBO(102, 17, 17, 1),
         body: SafeArea(
-            child: Column(children: <Widget>[
+            child: ListView(children: <Widget>[
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
@@ -86,18 +89,19 @@ class _SignUpState extends State<SignUp> {
                   ),
                   const Text('Is it already Registered?'),
                   TextButton(
-                    child: const Text(
-                      'login here',
-                      style: TextStyle(
-                        fontFamily: 'DMSans',
-                        fontSize: 15,
+                      child: const Text(
+                        'login here',
+                        style: TextStyle(
+                          fontFamily: 'DMSans',
+                          fontSize: 15,
+                        ),
                       ),
-                    ),
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => LoginDemo()));
-                    },
-                  ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginDemo()));
+                      }),
                   Container(
                     alignment: Alignment.centerLeft,
                     padding: const EdgeInsets.only(left: 20.0),
@@ -353,6 +357,28 @@ class _SignUpState extends State<SignUp> {
                           },
                         );
                       }).toList(),
+                    ),
+                  ),
+                  Container(
+                    height: 30,
+                    width: 160,
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Color.fromRGBO(107, 17, 17, 1),
+                      ),
+                      child: const Text('Sign Up'),
+                      onPressed: () {
+                        firebase.signUpWithEmail(
+                            "test@gmail.com",
+                            "123456",
+                            "user1",
+                            "0598855555",
+                            1,
+                            "Hi, welcome to my profile",
+                            "Engineer",
+                            "Worked on many projects");
+                      },
                     ),
                   ),
                 ],

@@ -1,22 +1,9 @@
 import 'dart:ui';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/Screens/ForgetPassword/ForgetPassword.dart';
 import 'package:untitled/Screens/SignUp/SiguUp.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: LoginDemo(),
-    );
-  }
-}
 
 class LoginDemo extends StatefulWidget {
   @override
