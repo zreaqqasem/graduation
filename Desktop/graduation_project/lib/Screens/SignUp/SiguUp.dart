@@ -1,9 +1,11 @@
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:untitled/Screens/ForgetPassword/ForgetPassword.dart';
 import 'package:untitled/Screens/Login/Login.dart';
+import 'package:intl/intl.dart';
 
 import '../../Services/firebase_auth_service.dart';
 
@@ -36,16 +38,15 @@ class _SignUpState extends State<SignUp> {
     'Company': false,
   };
   HostFireBaseAuth firebase = HostFireBaseAuth();
-  //bool guest = false;
-  //bool company = false;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController passwordController1 = TextEditingController();
+  TextEditingController passwordController2 = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
+  int _value = 1;
   @override
   Widget build(BuildContext context) {
-    TextEditingController emailController = TextEditingController();
-    TextEditingController nameController = TextEditingController();
-    TextEditingController passwordController1 = TextEditingController();
-    TextEditingController passwordController2 = TextEditingController();
-    TextEditingController phoneController = TextEditingController();
-    TextEditingController dateController = TextEditingController();
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -117,7 +118,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   Container(
                     height: 40,
-                    padding: const EdgeInsets.fromLTRB(10, 1, 10, 5),
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: TextField(
                       controller: nameController,
                       decoration: InputDecoration(
@@ -126,7 +127,13 @@ class _SignUpState extends State<SignUp> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30.0),
                         ),
-                        labelText: 'Enter your name',
+                        hintText: 'Enter your name',
+                        hintStyle: TextStyle(
+                          // height: 1.5,
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.grey,
+                        ),
                       ),
                     ),
                   ),
@@ -145,7 +152,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   Container(
                     height: 40,
-                    padding: const EdgeInsets.fromLTRB(10, 1, 10, 5),
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: TextField(
                       controller: emailController,
                       decoration: InputDecoration(
@@ -154,7 +161,13 @@ class _SignUpState extends State<SignUp> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30.0),
                         ),
-                        labelText: 'Email',
+                        hintText: 'Email',
+                        hintStyle: TextStyle(
+                          // height: 1.5,
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.grey,
+                        ),
                       ),
                     ),
                   ),
@@ -173,41 +186,38 @@ class _SignUpState extends State<SignUp> {
                   ),
                   Container(
                       height: 40,
-                      padding: const EdgeInsets.fromLTRB(10, 1, 10, 5),
+                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: TextField(
                         controller:
                             dateController, //editing controller of this TextField
                         decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.calendar_today),
-                            filled: true,
-                            fillColor: Color.fromRGBO(0x8f, 0x8e, 0x8e, 0.3),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0)),
-                            //icon of text field
-                            labelText: "Select" //label text of field
-
-                            ),
-                        readOnly:
-                            true, //set it true, so that user will not able to edit text
+                          prefixIcon: Icon(Icons.calendar_today),
+                          filled: true,
+                          fillColor: Color.fromRGBO(0x8f, 0x8e, 0x8e, 0.3),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30.0)),
+                          //icon of text field
+                          hintText: 'Select',
+                          hintStyle: TextStyle(
+                            // height: 1.5,
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.grey,
+                          ),
+                        ),
                         onTap: () async {
                           DateTime? pickedDate = await showDatePicker(
                               context: context,
                               initialDate: DateTime.now(),
                               firstDate: DateTime(
-                                  2000), //DateTime.now() - not to allow to choose before today.
-                              lastDate: DateTime(2101));
+                                  1900), //DateTime.now() - not to allow to choose before today.
+                              lastDate: DateTime(2100));
 
                           if (pickedDate != null) {
-                            print(
-                                pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-                            String formattedDate = pickedDate.toString();
-                            print(
-                                formattedDate); //formatted date output using intl package =>  2021-03-16
-                            //you can implement different kind of Date Format here according to your requirement
-
                             setState(() {
                               dateController.text =
-                                  formattedDate; //set output date to TextField value.
+                                  DateFormat('dd-MM-yyyy').format(pickedDate);
+                              print(dateController.text);
                             });
                           } else {
                             print("Date is not selected");
@@ -228,25 +238,30 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                   Container(
-                    height: 55,
-                    padding: const EdgeInsets.fromLTRB(10, 1, 10, 0),
+                    height: 40,
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: TextField(
                       keyboardType: TextInputType.phone,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       maxLength: 10,
-
                       controller:
                           phoneController, //editing controller of this TextField
                       decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.phone),
-                          filled: true,
-                          fillColor: Color.fromRGBO(0x8f, 0x8e, 0x8e, 0.3),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30.0)),
-                          //icon of text field
-                          labelText: "+970" //label text of field
-
-                          ),
+                        prefixIcon: Icon(Icons.phone),
+                        filled: true,
+                        counterText: "",
+                        fillColor: Color.fromRGBO(0x8f, 0x8e, 0x8e, 0.3),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30.0)),
+                        //icon of text field
+                        hintText: '+970',
+                        hintStyle: TextStyle(
+                          // height: 1.5,
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.grey,
+                        ),
+                      ),
                     ),
                   ),
                   Container(
@@ -263,7 +278,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   Container(
                     height: 40,
-                    padding: const EdgeInsets.fromLTRB(10, 1, 10, 5),
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: TextField(
                       obscureText: _isObscure,
                       enableSuggestions: false,
@@ -284,7 +299,13 @@ class _SignUpState extends State<SignUp> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30.0),
                         ),
-                        labelText: 'Enter your password',
+                        hintText: 'Enter your password',
+                        hintStyle: TextStyle(
+                          // height: 1.5,
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.grey,
+                        ),
                       ),
                     ),
                   ),
@@ -302,7 +323,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   Container(
                     height: 40,
-                    padding: const EdgeInsets.fromLTRB(10, 1, 10, 5),
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: TextField(
                       obscureText: _isObscure1,
                       enableSuggestions: false,
@@ -323,7 +344,13 @@ class _SignUpState extends State<SignUp> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30.0),
                         ),
-                        labelText: 'Re-enter your password',
+                        hintText: 'Re-enter your password',
+                        hintStyle: TextStyle(
+                          // height: 1.5,
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.grey,
+                        ),
                       ),
                     ),
                   ),
@@ -340,23 +367,65 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                   Container(
-                    height: 150,
-                    alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: ListView(
-                      children: values.keys.map((String key) {
-                        return CheckboxListTile(
-                          checkColor: Colors.white,
-                          title: new Text(key),
-                          value: values[key],
-                          onChanged: (value) {
-                            setState(() {
-                              values[key] = value!;
-                              print(values);
-                            });
-                          },
-                        );
-                      }).toList(),
+                    padding:
+                        EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 5),
+                    decoration: BoxDecoration(
+                        border: Border(
+                      bottom: BorderSide(width: 1.0, color: Colors.grey),
+                    )),
+                    child: Column(
+                      // mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          //mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Radio(
+                                  value: 1,
+                                  groupValue: _value,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _value = 1;
+                                    });
+                                  },
+                                ),
+                                SizedBox(
+                                  width: 2.0,
+                                ),
+                                Text("Freelancer"),
+                                Radio(
+                                  value: 2,
+                                  groupValue: _value,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _value = 2;
+                                    });
+                                  },
+                                ),
+                                SizedBox(
+                                  width: 2.0,
+                                ),
+                                Text("Guest"),
+                                Radio(
+                                  value: 3,
+                                  groupValue: _value,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _value = 3;
+                                    });
+                                  },
+                                ),
+                                SizedBox(
+                                  width: 5.0,
+                                ),
+                                Text("Company"),
+                              ],
+                            )
+                          ],
+                        )
+                      ],
                     ),
                   ),
                   Container(
@@ -369,15 +438,24 @@ class _SignUpState extends State<SignUp> {
                       ),
                       child: const Text('Sign Up'),
                       onPressed: () {
-                        firebase.signUpWithEmail(
-                            "test@gmail.com",
-                            "123456",
-                            "user1",
-                            "0598855555",
-                            1,
+                        try {
+                          firebase.signUpWithEmail(
+                            emailController.text,
+                            passwordController1.text,
+                            nameController.text,
+                            phoneController.text,
+                            _value.toInt(),
                             "Hi, welcome to my profile",
                             "Engineer",
-                            "Worked on many projects");
+                            "Worked on many projects",
+                          );
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginDemo()));
+                        } catch (e) {
+                          showAlertDialog(context);
+                        }
                       },
                     ),
                   ),
@@ -390,4 +468,31 @@ class _SignUpState extends State<SignUp> {
       ),
     );
   }
+}
+
+showAlertDialog(BuildContext context) {
+  // Create button
+  Widget okButton = ElevatedButton(
+    child: Text("OK"),
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+  );
+
+  // Create AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Simple Alert"),
+    content: Text("This is an alert message."),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }

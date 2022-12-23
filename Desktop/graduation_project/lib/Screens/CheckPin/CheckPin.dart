@@ -1,9 +1,7 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:code_input/code_input.dart';
-import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,7 +11,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: CheckPin(),
     );
@@ -21,6 +19,8 @@ class MyApp extends StatelessWidget {
 }
 
 class CheckPin extends StatefulWidget {
+  const CheckPin({Key? key}) : super(key: key);
+
   @override
   _CheckPinState createState() => _CheckPinState();
 }
@@ -34,7 +34,7 @@ class _CheckPinState extends State<CheckPin> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromRGBO(102, 17, 17, 1),
+          backgroundColor: const Color.fromRGBO(102, 17, 17, 1),
           title: Center(
             child: Text('Linka'),
           ),

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -5,16 +6,21 @@ import 'package:flutter/material.dart';
 import 'package:untitled/Screens/ForgetPassword/ForgetPassword.dart';
 import 'package:untitled/Screens/SignUp/SiguUp.dart';
 
+import '../../Services/firebase_auth_service.dart';
+
 class LoginDemo extends StatefulWidget {
   @override
   _LoginDemoState createState() => _LoginDemoState();
 }
 
+TextEditingController nameController = TextEditingController();
+TextEditingController passwordController = TextEditingController();
+
 class _LoginDemoState extends State<LoginDemo> {
   @override
   Widget build(BuildContext context) {
-    TextEditingController nameController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
+    HostFireBaseAuth firebase = HostFireBaseAuth();
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -96,7 +102,13 @@ class _LoginDemoState extends State<LoginDemo> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30.0),
                       ),
-                      labelText: 'Enter your email',
+                      hintText: 'Enter your email',
+                      hintStyle: TextStyle(
+                        // height: 1.5,
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.grey,
+                      ),
                     ),
                   ),
                 ),
@@ -125,7 +137,13 @@ class _LoginDemoState extends State<LoginDemo> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30.0),
                       ),
-                      labelText: 'Enter your password',
+                      hintText: 'Enter your password',
+                      hintStyle: TextStyle(
+                        // height: 1.5,
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.grey,
+                      ),
                     ),
                   ),
                 ),
@@ -158,8 +176,15 @@ class _LoginDemoState extends State<LoginDemo> {
                       ),
                       child: const Text('Login'),
                       onPressed: () {
-                        print(nameController.text);
-                        print(passwordController.text);
+                        firebase.signInWithEmail(
+                          nameController.text,
+                          passwordController.text,
+                        );
+                        print("Succeed");
+                        //   Navigator.push(
+                        //       context,
+                        //       MaterialPageRoute(
+                        //           builder: (context) => LoginDemo()));
                       },
                     )),
                 Row(

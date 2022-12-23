@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 
 abstract class HostFireBaseAuthService {
   signUpWithEmail(String email, String password, String name, String phone,
@@ -43,7 +41,7 @@ class HostFireBaseAuth extends HostFireBaseAuthService {
           'Phone': phone,
           'UserType': userType,
           'Bio': bio,
-          'WorkPositiom': position,
+          'WorkPosition': position,
           'Experinces': experinces,
         });
       });
@@ -51,6 +49,7 @@ class HostFireBaseAuth extends HostFireBaseAuthService {
       rethrow;
     } catch (e) {
       print(e);
+      rethrow;
     }
   }
 }
