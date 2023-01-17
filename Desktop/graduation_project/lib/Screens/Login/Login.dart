@@ -3,7 +3,11 @@ import 'dart:ui';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:untitled/Screens/Detailed/description.dart';
 import 'package:untitled/Screens/ForgetPassword/ForgetPassword.dart';
+import 'package:untitled/Screens/Home/Company/Company.dart';
+import 'package:untitled/Screens/Home/Freelancer/Freelancer.dart';
+import 'package:untitled/Screens/Home/Guest/Guest.dart';
 import 'package:untitled/Screens/SignUp/SiguUp.dart';
 
 import '../../Services/firebase_auth_service.dart';
@@ -61,7 +65,7 @@ class _LoginDemoState extends State<LoginDemo> {
                     'Login',
                     style: TextStyle(
                       fontFamily: 'DG-Sahabah',
-                      fontSize: 40,
+                      fontSize: 30,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
@@ -81,7 +85,7 @@ class _LoginDemoState extends State<LoginDemo> {
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.only(left: 20.0),
+                  padding: const EdgeInsets.only(left: 25.0),
                   child: const Text(
                     "Email",
                     textAlign: TextAlign.right,
@@ -93,7 +97,7 @@ class _LoginDemoState extends State<LoginDemo> {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.fromLTRB(10, 1, 10, 10),
+                  padding: const EdgeInsets.fromLTRB(20, 1, 20, 10),
                   child: TextField(
                     controller: nameController,
                     decoration: InputDecoration(
@@ -114,7 +118,7 @@ class _LoginDemoState extends State<LoginDemo> {
                 ),
                 Container(
                   alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.only(left: 20.0),
+                  padding: const EdgeInsets.only(left: 25.0),
                   child: const Text(
                     "Password",
                     style: TextStyle(
@@ -125,7 +129,7 @@ class _LoginDemoState extends State<LoginDemo> {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.fromLTRB(10, 1, 10, 5),
+                  padding: const EdgeInsets.fromLTRB(20, 1, 20, 5),
                   child: TextField(
                     obscureText: true,
                     enableSuggestions: false,
@@ -176,11 +180,32 @@ class _LoginDemoState extends State<LoginDemo> {
                       ),
                       child: const Text('Login'),
                       onPressed: () {
-                        firebase.signInWithEmail(
-                          nameController.text,
-                          passwordController.text,
-                        );
-                        print("Succeed");
+                        // firebase.
+                        // (
+                        //   nameController.text,
+                        //   passwordController.text,
+                        // );
+                        // print("Succeed");
+                        firebase.checkUserType(nameController.text);
+                        int type = 1;
+                        if (type == 0) //freelancer
+                        {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Freelancer()));
+                        } else if (type == 1) //guest
+                        {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Guest()));
+                        } else if (type == 2) //company
+                        {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Company()));
+                        }
+
                         //   Navigator.push(
                         //       context,
                         //       MaterialPageRoute(
@@ -207,6 +232,7 @@ class _LoginDemoState extends State<LoginDemo> {
                   mainAxisAlignment: MainAxisAlignment.center,
                 ),
               ],
+              mainAxisAlignment: MainAxisAlignment.center,
             ),
           ),
         ])),

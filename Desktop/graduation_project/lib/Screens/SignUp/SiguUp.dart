@@ -64,18 +64,13 @@ class _SignUpState extends State<SignUp> {
                 topRight: Radius.circular(30),
                 topLeft: Radius.circular(30),
               ),
-
               color: Colors.white,
-              // gradient: LinearGradient(colors: [
-              //   Color.fromRGBO(0x8f, 0x8e, 0x8e, 0),
-              //     Color.fromRGBO(0x8f, 0x8e, 0x8e, 1)
-              //   ], begin: Alignment.bottomLeft, end: Alignment.topRight),
             ),
             child: new SingleChildScrollView(
               child: Column(
                 children: <Widget>[
                   Container(
-                    height: 50,
+                    height: 100,
                     alignment: Alignment.center,
                     padding: const EdgeInsets.fromLTRB(10, 10, 10, 30),
                     child: const Text(
@@ -117,8 +112,8 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                   Container(
-                    height: 40,
-                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    height: 60,
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
                     child: TextField(
                       controller: nameController,
                       decoration: InputDecoration(
@@ -130,7 +125,7 @@ class _SignUpState extends State<SignUp> {
                         hintText: 'Enter your name',
                         hintStyle: TextStyle(
                           // height: 1.5,
-                          fontSize: 14,
+                          fontSize: 15,
                           fontWeight: FontWeight.normal,
                           color: Colors.grey,
                         ),
@@ -151,7 +146,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                   Container(
-                    height: 40,
+                    height: 60,
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: TextField(
                       controller: emailController,
@@ -164,7 +159,7 @@ class _SignUpState extends State<SignUp> {
                         hintText: 'Email',
                         hintStyle: TextStyle(
                           // height: 1.5,
-                          fontSize: 14,
+                          fontSize: 15,
                           fontWeight: FontWeight.normal,
                           color: Colors.grey,
                         ),
@@ -185,7 +180,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                   Container(
-                      height: 40,
+                      height: 60,
                       padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                       child: TextField(
                         controller:
@@ -200,7 +195,7 @@ class _SignUpState extends State<SignUp> {
                           hintText: 'Select',
                           hintStyle: TextStyle(
                             // height: 1.5,
-                            fontSize: 14,
+                            fontSize: 15,
                             fontWeight: FontWeight.normal,
                             color: Colors.grey,
                           ),
@@ -238,7 +233,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                   Container(
-                    height: 40,
+                    height: 60,
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: TextField(
                       keyboardType: TextInputType.phone,
@@ -257,7 +252,7 @@ class _SignUpState extends State<SignUp> {
                         hintText: '+970',
                         hintStyle: TextStyle(
                           // height: 1.5,
-                          fontSize: 14,
+                          fontSize: 15,
                           fontWeight: FontWeight.normal,
                           color: Colors.grey,
                         ),
@@ -277,7 +272,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                   Container(
-                    height: 40,
+                    height: 60,
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: TextField(
                       obscureText: _isObscure,
@@ -302,7 +297,7 @@ class _SignUpState extends State<SignUp> {
                         hintText: 'Enter your password',
                         hintStyle: TextStyle(
                           // height: 1.5,
-                          fontSize: 14,
+                          fontSize: 15,
                           fontWeight: FontWeight.normal,
                           color: Colors.grey,
                         ),
@@ -322,7 +317,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                   Container(
-                    height: 40,
+                    height: 60,
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: TextField(
                       obscureText: _isObscure1,
@@ -347,7 +342,7 @@ class _SignUpState extends State<SignUp> {
                         hintText: 'Re-enter your password',
                         hintStyle: TextStyle(
                           // height: 1.5,
-                          fontSize: 14,
+                          fontSize: 15,
                           fontWeight: FontWeight.normal,
                           color: Colors.grey,
                         ),
@@ -356,7 +351,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   Container(
                     alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.only(left: 20.0),
+                    padding: const EdgeInsets.fromLTRB(20, 20, 0, 0),
                     child: const Text(
                       "User type",
                       style: TextStyle(
@@ -374,11 +369,9 @@ class _SignUpState extends State<SignUp> {
                       bottom: BorderSide(width: 1.0, color: Colors.grey),
                     )),
                     child: Column(
-                      // mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          //mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Row(
                               children: [
@@ -424,16 +417,18 @@ class _SignUpState extends State<SignUp> {
                               ],
                             )
                           ],
-                        )
+                        ),
                       ],
                     ),
                   ),
                   Container(
-                    height: 30,
+                    height: 80,
                     width: 160,
-                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 20),
+                    alignment: Alignment.bottomCenter,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
+                        minimumSize: Size(140, 40),
                         primary: Color.fromRGBO(107, 17, 17, 1),
                       ),
                       child: const Text('Sign Up'),
@@ -460,7 +455,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                 ],
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
               ),
             ),
           ),

@@ -6,6 +6,7 @@ abstract class HostFireBaseAuthService {
       int userType, String bio, String position, String experinces);
 
   signInWithEmail(String email, String password);
+  checkUserType(String email);
 }
 
 class HostFireBaseAuth extends HostFireBaseAuthService {
@@ -51,5 +52,18 @@ class HostFireBaseAuth extends HostFireBaseAuthService {
       print(e);
       rethrow;
     }
+  }
+
+  @override
+  checkUserType(String email) {
+    //   try {
+    //     final snapshot = FirebaseFirestore.instance.collection('UserData').get();
+    //     print(snapshot);
+    //   } on FirebaseAuthException {
+    //     rethrow;
+    //   } catch (e) {
+    //     print(e);
+    //     rethrow;
+    //   }
   }
 }
