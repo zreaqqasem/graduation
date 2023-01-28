@@ -148,7 +148,7 @@ class HostFireBaseAuth extends HostFireBaseAuthService {
       String text, String text2, int? value, int? value1, String text3) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
 
-    var id = text + "-" + text2;
+    var id = text + "-" + pref.getString('email')!;
     print(id);
     FirebaseFirestore.instance.collection('Job').doc(id).set({
       'Title': text,
@@ -165,8 +165,8 @@ class HostFireBaseAuth extends HostFireBaseAuthService {
   void postTraining(String title, String hours, int? value, String startdate,
       String enddate, String price, String description) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-
-    FirebaseFirestore.instance.collection('Training').doc(title).set({
+    var id = title + "-" + pref.getString('email')!;
+    FirebaseFirestore.instance.collection('Training').doc(id).set({
       'Title': title,
       'Picture': '',
       'Hours': hours,
@@ -184,7 +184,7 @@ class HostFireBaseAuth extends HostFireBaseAuthService {
       String description) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
 
-    var id = title + "-" + type;
+    var id = title + "-" + pref.getString('email')!;
     FirebaseFirestore.instance.collection('Project').doc(id).set({
       'Title': title,
       'Picture': '',
