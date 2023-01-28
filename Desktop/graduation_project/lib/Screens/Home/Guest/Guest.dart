@@ -5,7 +5,11 @@ import 'dart:ui';
 import 'package:untitled/Screens/Home/Guest/NavigationGuest.dart';
 
 import '../../Detailed/description.dart';
-import '../Feed/viewappliers.dart';
+import '../Activity/share_job.dart';
+import '../Activity/share_proj.dart';
+import '../Activity/share_train.dart';
+import '../Feed/appliers.dart';
+import '../Feed/justforyou.dart';
 
 class Guest extends StatelessWidget {
   const Guest({Key? key}) : super(key: key);
@@ -110,14 +114,15 @@ class _Body extends StatelessWidget {
             width: 180,
             child: ListTile(
               title: FloatingActionButton.extended(
-                label: Text('Post A Job'), // <-- Text
+                label: Text('Apply For A Job'), // <-- Text
                 backgroundColor: Color.fromRGBO(107, 17, 17, 1),
                 icon: Icon(
                   // <-- Icon
                   Icons.work,
                   size: 24.0,
                 ),
-                onPressed: () {},
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => justforyou())),
               ),
             ),
           ),
@@ -134,7 +139,8 @@ class _Body extends StatelessWidget {
                   Icons.wysiwyg,
                   size: 24.0,
                 ),
-                onPressed: () {},
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ShareProj())),
               ),
             ),
           ),
@@ -144,14 +150,15 @@ class _Body extends StatelessWidget {
             width: 180,
             child: ListTile(
               title: FloatingActionButton.extended(
-                label: Text('Post A Training'), // <-- Text
+                label: Text('Apply Fors A Training'), // <-- Text
                 backgroundColor: Color.fromRGBO(107, 17, 17, 1),
                 icon: Icon(
                   // <-- Icon
                   Icons.model_training,
                   size: 24.0,
                 ),
-                onPressed: () {},
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => justforyou())),
               ),
             ),
           ),
@@ -234,7 +241,7 @@ class bottom extends StatelessWidget {
             icon: const Icon(Icons.filter_list),
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => viewappliers()));
+                  MaterialPageRoute(builder: (context) => justforyou()));
             },
           ),
           IconButton(

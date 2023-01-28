@@ -3,12 +3,14 @@ import 'dart:ui';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled/Screens/Detailed/description.dart';
 import 'package:untitled/Screens/ForgetPassword/ForgetPassword.dart';
 import 'package:untitled/Screens/Home/Company/Company.dart';
 import 'package:untitled/Screens/Home/Freelancer/Freelancer.dart';
 import 'package:untitled/Screens/Home/Guest/Guest.dart';
 import 'package:untitled/Screens/SignUp/SiguUp.dart';
+import 'package:untitled/user.dart';
 
 import '../../Services/firebase_auth_service.dart';
 
@@ -179,32 +181,38 @@ class _LoginDemoState extends State<LoginDemo> {
                         primary: Color.fromRGBO(107, 17, 17, 1),
                       ),
                       child: const Text('Login'),
-                      onPressed: () {
-                        // firebase.
-                        // (
-                        //   nameController.text,
-                        //   passwordController.text,
-                        // );
-                        // print("Succeed");
-                        firebase.checkUserType(nameController.text);
-                        int type = 1;
-                        if (type == 0) //freelancer
-                        {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Freelancer()));
-                        } else if (type == 1) //guest
-                        {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Guest()));
-                        } else if (type == 2) //company
-                        {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Company()));
-                        }
+                      onPressed: () async {
+                        firebase.signInWithEmail(
+                            nameController.text, passwordController.text);
+                        await firebase
+                            .saveLoginInformation(nameController.text);
+
+                        firebase
+                            .checkUserType(nameController.text)
+                            .then((value) => {
+                                  if (value == 0) //freelancer
+                                    {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Freelancer()))
+                                    }
+                                  else if (value == 1) //guest
+                                    {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Guest()))
+                                    }
+                                  else if (value == 2) //company
+                                    {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Company()))
+                                    }
+                                });
 
                         //   Navigator.push(
                         //       context,

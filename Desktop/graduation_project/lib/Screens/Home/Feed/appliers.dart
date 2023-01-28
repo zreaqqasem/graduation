@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:untitled/Screens/Home//Company/Company.dart';
 import '../../Detailed/description.dart';
 
-class viewappliers extends StatelessWidget {
-  const viewappliers({Key? key}) : super(key: key);
+class appliers extends StatelessWidget {
+  const appliers({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

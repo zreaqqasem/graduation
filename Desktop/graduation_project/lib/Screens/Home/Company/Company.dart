@@ -5,7 +5,11 @@ import 'package:untitled/Screens/Home/Company/NavigationCompany.dart';
 import 'dart:ui';
 
 import 'package:untitled/Screens/Home/Feed/justforyou.dart';
-import 'package:untitled/Screens/Home/Feed/viewappliers.dart';
+import 'package:untitled/Screens/Home/Feed/appliers.dart';
+
+import '../Activity/share_job.dart';
+import '../Activity/share_proj.dart';
+import '../Activity/share_train.dart';
 
 class Company extends StatelessWidget {
   const Company({Key? key}) : super(key: key);
@@ -117,7 +121,8 @@ class _Body extends StatelessWidget {
                   Icons.work,
                   size: 24.0,
                 ),
-                onPressed: () {},
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ShareJob())),
               ),
             ),
           ),
@@ -134,7 +139,8 @@ class _Body extends StatelessWidget {
                   Icons.wysiwyg,
                   size: 24.0,
                 ),
-                onPressed: () {},
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ShareProj())),
               ),
             ),
           ),
@@ -151,7 +157,8 @@ class _Body extends StatelessWidget {
                   Icons.model_training,
                   size: 24.0,
                 ),
-                onPressed: () {},
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ShareTrain())),
               ),
             ),
           ),
@@ -224,8 +231,8 @@ class bottom extends StatelessWidget {
             color: Color.fromRGBO(107, 17, 17, 1),
             icon: const Icon(Icons.filter_list),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => viewappliers()));
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => appliers()));
             },
           ),
           IconButton(

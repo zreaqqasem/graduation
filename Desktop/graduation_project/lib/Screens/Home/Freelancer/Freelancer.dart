@@ -12,7 +12,7 @@ class Freelancer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: navbar(),
+      drawer: const navbar(),
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Freelancer'),
@@ -116,7 +116,8 @@ class _Body extends StatelessWidget {
                   Icons.work,
                   size: 24.0,
                 ),
-                onPressed: () {},
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => justforyou())),
               ),
             ),
           ),
@@ -133,7 +134,8 @@ class _Body extends StatelessWidget {
                   Icons.wysiwyg,
                   size: 24.0,
                 ),
-                onPressed: () {},
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => justforyou())),
               ),
             ),
           ),
@@ -150,7 +152,8 @@ class _Body extends StatelessWidget {
                   Icons.model_training,
                   size: 24.0,
                 ),
-                onPressed: () {},
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => justforyou())),
               ),
             ),
           ),

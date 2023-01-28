@@ -1,8 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Login/Login.dart';
+import '../../Profile/editProfile.dart';
+import '../../Profile/profile.dart';
 
-class navbar extends StatelessWidget {
+class navbar extends StatefulWidget {
+  const navbar({Key? key}) : super(key: key);
+
+  @override
+  _navbarState createState() => _navbarState();
+}
+
+class _navbarState extends State<navbar> {
+  var _name = null;
+  var _email = null;
+  var _image = null;
+
+  @override
+  void initState() {
+    getvalues().then((list) {
+      setState(() {
+        _email = list[0];
+        _name = list[1];
+        _image = list[2];
+      });
+      this.build(context);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -12,18 +38,25 @@ class navbar extends StatelessWidget {
           UserAccountsDrawerHeader(
             decoration: BoxDecoration(color: Color.fromRGBO(107, 17, 17, 1)),
             accountName: Text(
-              'rawan',
+              (_name ?? ''),
               style: TextStyle(color: Colors.white),
             ),
             accountEmail: Text(
-              'rawan@gmail.com',
+              (_email ?? ''),
               style: TextStyle(color: Colors.white),
             ),
-            currentAccountPicture: CircleAvatar(
-                child: ClipOval(
-              child: Image.network(
-                  'https://scontent.fjrs25-1.fna.fbcdn.net/v/t39.30808-6/286499699_5555668931159722_7864494492427324668_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=971uPLCorgsAX-3LwAG&_nc_ht=scontent.fjrs25-1.fna&oh=00_AfCG_Szgy5sngSahk5jRu4pbfpRTyF5RG8Z3oSwJWGTotQ&oe=638860D1'),
-            )),
+            currentAccountPicture: Container(
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey, width: 4),
+                // color: Colors.grey,
+                shape: BoxShape.circle,
+              ),
+              child: IconButton(
+                icon: Image.network((_image ?? ' ')),
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Profile())),
+              ),
+            ),
           ),
           ListTile(
             title: Text(
@@ -39,7 +72,8 @@ class navbar extends StatelessWidget {
             leading: Icon(Icons.app_registration),
             iconColor: Color.fromRGBO(107, 17, 17, 1),
             title: Text('Edit Profile'),
-            onTap: () => null,
+            onTap: () => Navigator.push(
+                context, MaterialPageRoute(builder: (context) => EditProf())),
           ),
           Divider(
             thickness: 0.5,
@@ -108,5 +142,16 @@ class navbar extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<List<String?>> getvalues() async {
+    // 1
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String?> values = [
+      prefs.getString('email'),
+      prefs.getString('name'),
+      prefs.getString("picture")
+    ];
+    return (values);
   }
 }

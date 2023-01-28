@@ -435,15 +435,15 @@ class _SignUpState extends State<SignUp> {
                       onPressed: () {
                         try {
                           firebase.signUpWithEmail(
-                            emailController.text,
-                            passwordController1.text,
-                            nameController.text,
-                            phoneController.text,
-                            _value.toInt(),
-                            "Hi, welcome to my profile",
-                            "Engineer",
-                            "Worked on many projects",
-                          );
+                              emailController.text,
+                              passwordController1.text,
+                              nameController.text,
+                              phoneController.text,
+                              _value.toInt(),
+                              "Hi, welcome to my profile",
+                              "Engineer",
+                              "Worked on many projects",
+                              dateController.text);
                           Navigator.push(
                               context,
                               MaterialPageRoute(
