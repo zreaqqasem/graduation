@@ -20,7 +20,8 @@ class _ShareProjUIState extends State<ShareProj> {
     'Full-Stack',
     'Programming',
     'Accounting',
-    'Marketing'
+    'Marketing',
+    'etc'
   ];
   TextEditingController date = TextEditingController();
   @override
